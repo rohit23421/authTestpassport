@@ -1,12 +1,10 @@
 const cookieSession = require("cookie-session");
 const express = require("express");
 const cors = require("cors");
+const passportSetup = require("./passport");
 const passport = require("passport");
+const authRoute = require("./routes/auth");
 const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Hello there app is running!!!");
-});
 
 app.use(
   cookieSession({
@@ -27,7 +25,8 @@ app.use(
   })
 );
 
-const port = process.env.PORT || 5000;
-app.listen(port, (req, res) => {
-  console.log(`APP IS CONNECTED AND RUNNING ON ${port}`);
+app.use("/auth", authRoute);
+
+app.listen("5000", () => {
+  console.log("APP IS CONNECTED AND RUNNING ON 5000");
 });
